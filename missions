@@ -1,0 +1,350 @@
+on mine:
+    if {todaymission.%player%} is true:
+        if {mission.%player%} is "mine1k":
+            add 1 to {mblocks.%player%}
+            if {mblocks.%player%} is 1000:
+                send "&b&l&nToday's Mission!%nl%%nl%&bMining Champion &8| &7Mine Any 1000 Blocks%nl%&bProgress &8| &7Completed!"
+                send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                set {missionreward.%player%} to true
+                add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+ 
+on death:
+    if {todaymission.%attacker%} is true:
+        if {mission.%attacker%} is "blaze100":
+            if victim is a blaze:
+                add 1 to {mblaze.%attacker%}
+                if {mblaze.%attacker%} is 100:
+                    send "&b&l&nToday's Mission!%nl%%nl%&bBlaze Slayer &8| &7Kill Any 100 Blazes%nl%&bProgress &8| &7Completed!"
+                    send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                    set {missionreward.%attacker%} to true
+                    add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+ 
+on death:
+    if {todaymission.%attacker%} is true:
+        if {mission.%attacker%} is "creeper25":
+            if victim is a player:
+                add 1 to {mkplayer.%attacker%}
+                if {mkplayer.%attacker%} is 10:
+                    send "&b&l&nToday's Mission!%nl%%nl%&bTry Not To Explode &8| &7Kill 10 Players%nl%&bProgress &8| &7Completed!"
+                    send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                    set {missionreward.%attacker%} to true
+                    add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+ 
+on death:
+    if {todaymission.%attacker%} is true:
+        if {mission.%attacker%} is "zombie75":
+            if victim is a zombie:
+                add 1 to {mzombie.%attacker%}
+                if {mzombie.%attacker%} is 75:
+                    send "&b&l&nToday's Mission!%nl%%nl%&bZombie Slayer &8| &7Kill 75 Zombies%nl%&bProgress &8| &7Completed!"
+                    send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                    set {missionreward.%attacker%} to true
+                    add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+ 
+on death:
+    if {todaymission.%player%} is true:
+        if {mission.%player%} is "creeper25":
+            if victim is a blaze:
+                add 1 to {mblaze.%player%}
+                if {mblaze.%player%} is 25:
+                    send "&b&l&nToday's Mission!%nl%%nl%&bCreeper Slayer &8| &7Kill 25 Creepers%nl%&bProgress &8| &7Completed!"
+                    send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                    set {missionreward.%player%} to true
+                    add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+ 
+on craft:
+    if {todaymission.%player%} is true:
+        if {mission.%player%} is "cake3":
+            if item type is a cake:
+                add 1 to {mcake.%player%}
+                if {mcake.%player%} is 3:
+                    send "&b&l&nToday's Mission!%nl%%nl%&bCake Cake Baker &8| &7Bake (Craft) 3 Cakes%nl%&bProgress &8| &7Completed!"
+                    send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                    set {missionreward.%player%} to true
+                    add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+ 
+on place:
+    if {todaymission.%player%} is true:
+        if {mission.%player%} is "place500":
+            add 1 to {mplace.%player%}
+            if {mplace.%player%} is 500:
+                send "&b&l&nToday's Mission!%nl%%nl%&bIsland Expansions &8| &7Place Any 500 Blocks%nl%&bProgress &8| &7Completed!"
+                send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                set {missionreward.%player%} to true
+                add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+ 
+on death:
+    if {todaymission.%player%} is true:
+        if {mission.%player%} is "hostile150":
+            if victim is a blaze or cave spider or zombie or creeper or elder guardian or enderman or endermite or evoker or ghast or guardian or husk or zombie pigman or shulker or silverfish or skeleton or slime or spider or stray or witch or wither skeleton or zombie:
+                add 1 to {mhostile.%player%}
+                if {mhostile.%player%} is 150:
+                    send "&b&l&nToday's Mission!%nl%%nl%&bMonster Slayer &8| &7Kill Any 150 Hostile Monsters%nl%&bProgress &8| &7Completed!"
+                    send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                    set {missionreward.%player%} to true
+                    add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player 
+on sneak toggle:
+    if {todaymission.%player%} is true:
+        if {mission.%player%} is "sneak500":
+            add 1 to {msneak.%player%}
+            if {msneak.%player%} is 500:
+                send "&b&l&nToday's Mission!%nl%%nl%&bSneak Around &8| &7Sneak 500 Times%nl%&bProgress &8| &7Completed!"
+                send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                set {missionreward.%player%} to true
+                add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+ 
+command /mission:
+    aliases: missions
+    trigger:
+        if {todaymission.%player%} is false:
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bMining Champion &8| &7Mine Any 1000 Blocks%nl%&bProgress &8| &7%{mblocks.%player%}%&7/&71000%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "mine1k"
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bBlaze Slayer &8| &7Kill 100 Blazes%nl%&bProgress &8| &7%{mblaze.%player%}%&7/&7100%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "blaze100"
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bMonster Slayer &8| &7Kill Any 150 Hostile Monsters%nl%&bProgress &8| &7%{mhostile.%player%}%&7/&7150%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "hostile150"
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bIsland Expansions &8| &7Place Any 500 Blocks%nl%&bProgress &8| &7%{mplace.%player%}%&7/&7500%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "place500"
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bMurderer &8| &7Kill 10 Players%nl%&bProgress &8| &7%{mkplayer.%player%}%&7/&710%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "playerk10"
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bTry Not to Explode &8| &7Kill 25 Creepers%nl%&bProgress &8| &7%{mcreeper.%player%}%&7/&725%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "creeper25"
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bSneak Around &8| &7Sneak 500 Times%nl%&bProgress &8| &7%{msneak.%player%}%&7/&7500%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "sneak500"
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bUndead &8| &7Kill 75 Zombies%nl%&bProgress &8| &7%{mzombie.%player%}%&7/&775%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "zombie75"
+            chance of 10%:
+                set {todaymission.%player%} to true
+                set {missionused.%player%} to now
+                send "&b&l&nToday's Mission!%nl%%nl%&bCake Baker &8| &7Bake (Craft) 3 Cakes%nl%&bProgress &8| &7%{mcake.%player%}%&7/&73%nl%%nl%&7Time Remaining: &b24 hours"
+                set {mission.%player%} to "cake3"
+        else:
+            set {_mission2} to "24 hours" parsed as a timespan
+            set {_missionwaited} to difference between {missionused.%player%} and now
+            if {_missionwaited} is less than {_mission2}:
+                set {missiontimeleft.%player%} to difference between {_mission2} and {_missionwaited}
+                if {mission.%player%} is "mine1k":
+                    if {mblocks.%player%} is less than 1000:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bMining Champion &8| &7Mine Any 1000 Blocks%nl%&bProgress &8| &7%{mblocks.%player%}%&7/&71000%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bMining Champion &8| &7Mine Any 1000 Blocks%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "place500":
+                    if {mplace.%player%} is less than 500:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bBuilder &8| &7Place Any 500 Blocks%nl%&bProgress &8| &7%{mplace.%player%}%&7/&7500%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bBuilder &8| &7Place Any 500 Blocks%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "sneak500":
+                    if {msneak.%player%} is less than 500:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bSneak Around &8| &7Sneak 500 Times%nl%&bProgress &8| &7%{msneak.%player%}%&7/&7500%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bSneak Around &8| &7Sneak 500 Times%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "playerk10":
+                    if {mkplayer.%player%} is less than 10:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bMurderer &8| &7Kill 10 Players%nl%&bProgress &8| &7%{mkplayer.%player%}%&7/&710%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bMurderer &8| &7Kill 10 Players%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "zombie75":
+                    if {mzombie.%player%} is less than 75:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bUndead &8| &7Kill 75 Zombies%nl%&bProgress &8| &7%{mzombie.%player%}%&7/&775%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bUndead &8| &7Kill 75 Zombies%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "blaze100":
+                    if {mblaze.%player%} is less than 100:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bBlaze Slayer &8| &7Kill Any 100 Blazes%nl%&bProgress &8| &7%{mblaze.%player%}%&7/&7100%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bBlaze Slayer &8| &7Kill Any 100 Blazes%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "hostile150":
+                    if {mhostile.%player%} is less than 150:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bMonster Slayer &8| &7Kill 150 Hostile Monsters%nl%&bProgress &8| &7%{mhostile.%player%}%&7/&7150%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bMonster Slayer &8| &7Kill 150 Hostile Monsters%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "cake3":
+                    if {mcake.%player%} is less than 3:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bCake Baker &8| &7Bake (Craft) 3 Cakes%nl%&bProgress &8| &7%{mcake.%player%}%&7/&73%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bCake Baker &8| &7Bake (Craft) 3 Cakes%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "walk5k":
+                    if {mwalk.%player%} is less than 5000:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bTraveler &8| &7Walk 500 Blocks%nl%&bProgress &8| &7%{mwalk.%player%}%&7/&75000%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bTraveler &8| &7Walk 500 Blocks%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+                if {mission.%player%} is "creeper25":
+                    if {mcreeper.%player%} is less than 25:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bTry Not To Explode &8| &7Kill 25 Creepers%nl%&bProgress &8| &7%{mcreeper.%player%}%&7/&725%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                    else:
+                        send "&b&l&nToday's Mission!%nl%%nl%&bTry Not To Explode &8| &7Kill 25 Creepers%nl%&bProgress &8| &7Completed!%nl%%nl%&7Time Remaining: &b%{missiontimeleft.%player%}%"
+                        if {missionreward.%player%} is true:
+                            send "&7You have already received the reward for this mission!"
+                        else:
+                            send "&aYou have completed your daily Mission and have won a Whimsical Key!!"
+                            set {missionreward.%player%} to true
+                            add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+            else:
+                set {todaymission.%player%} to false
+                set {missionused.%player%} to now
+                set {missionreward.%player%} to false
+                delete {missiontimeleft.%player%}
+                set {mblocks.%player%} to 0
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bMining Champion &8| &7Mine Any 1000 Blocks%nl%&bProgress &8| &7%{mblocks.%player%}%&7/&71000%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "mine1k"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bBlaze Slayer &8| &7Kill 100 Blazes%nl%&bProgress &8| &7%{mblaze.%player%}%&7/&7100%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "blaze100"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bMonster Slayer &8| &7Kill Any 150 Hostile Monsters%nl%&bProgress &8| &7%{mhostile.%player%}%&7/&7150%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "hostile150"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bBuilder &8| &7Place Any 500 Blocks%nl%&bProgress &8| &7%{mplace.%player%}%&7/&7500%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "place500"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bTraveler &8| &7Walk 5000 Blocks%nl%&bProgress &8| &7%{mwalk.%player%}%&7/&75000%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "walk5k"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bMurderer &8| &7Kill 10 Players%nl%&bProgress &8| &7%{mkplayer.%player%}%&7/&710%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "playerk10"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bTry Not to Explode &8| &7Kill 25 Creepers%nl%&bProgress &8| &7%{mcreeper.%player%}%&7/&725%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "creeper25"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bSneak Around &8| &7Sneak 500 Times%nl%&bProgress &8| &7%{msneak.%player%}%&7/&7500%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "sneak500"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bUndead &8| &7Kill 75 Zombies%nl%&bProgress &8| &7%{mzombie.%player%}%&7/&775%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "zombie75"
+                chance of 10%:
+                    set {todaymission.%player%} to true
+                    set {missionused.%player%} to now
+                    send "&b&l&nToday's Mission!%nl%%nl%&bCake Baker &8| &7Bake (Craft) 3 Cakes%nl%&bProgress &8| &7%{mcake.%player%}%&7/&73%nl%%nl%&7Time Remaining: &b24 hours"
+                    set {mission.%player%} to "cake3"			
+ 
+command /newm [<text>]:
+    permission: rank.admin
+    permission message: &bInsufficient Permissions.
+    trigger:
+        if argument 1 is not set:
+            set {todaymission.%player%} to false
+            set {missionused.%player%} to now
+            set {missionreward.%player%} to false
+            set {mblocks.%player%} to 0
+            set {mblaze.%player%} to 0
+            set {mhostile.%player%} to 0
+            set {mplace.%player%} to 0
+            set {mwalk.%player%} to 0
+            set {mkplayer.%player%} to 0
+            set {mcreeper.%player%} to 0
+            set {msneak.%player%} to 0
+            set {mzombie.%player%} to 0
+            set {mcake.%player%} to 0
+            send "&7[&bSkyHaze&7] &7» &7Reset &b%player%&7's mission."
+        else:
+            set {todaymission.%arg-1%} to false
+            set {missionused.%arg-1%} to now
+            set {missionreward.%arg-1%} to false
+            set {mblocks.%arg-1%} to 0
+            set {mblaze.%arg-1%} to 0
+            set {mhostile.%arg-1%} to 0
+            set {mplace.%arg-1%} to 0
+            set {mwalk.%arg-1%} to 0
+            set {mkplayer.%arg-1%} to 0
+            set {mcreeper.%arg-1%} to 0
+            set {msneak.%arg-1%} to 0
+            set {mzombie.%arg-1%} to 0
+            set {mcake.%arg-1%} to 0
+            send "&7[&bSkyHaze&7] &7» &7Reset &b%arg-1%&7's mission."
