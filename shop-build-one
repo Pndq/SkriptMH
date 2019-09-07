@@ -1,0 +1,143 @@
+options:
+    prefix: &3&lSAILS
+
+command /shop [<text>]:
+    trigger:
+        open virtual chest inventory with size 3 named "&3Shop" for player
+        format gui slot 10 of player with grass block named "&7Building Blocks" to run function shop(player, "Building")
+        format gui slot 11 of player with redstone dust named "&7Redstone" to run function shop(player, "Redstone")
+        format gui slot 12 of player with rotten flesh named "&7Mob Drops" to run function shop(player, "Drops")
+        format gui slot 13 of player with wheat named "&7Farming Supplies" to run function shop(player, "Farming")
+        format gui slot 14 of player with wheat named "&7Farming Supplies" to run function shop(player, "Spawners")
+        format gui slot 15 of player with barrier named "&cComing Soon!"
+
+function shop(p: player, s: text):
+    open virtual chest inventory with size 6 named "&3%{_s}% &7($%convertNum({_p}'s balance)%)" for {_p}
+    set {_n} to 0
+    loop {%{_s}%::*}:
+        set {_s::*} to loop-value split at " - "
+        set {_i} to "%first element out of {_s::*}%" parsed as item
+        set {_van::*} to vanilla name of {_i}
+        set {_van} to first element out of {_van::*}
+        replace all "minecraft:" in {_van} with ""
+        replace all "_" in {_van} with " "
+        set {_price} to "%2nd element out of {_s::*}%" parsed as number
+        set {_i::*} to ("%{_van}%") split at " "
+        loop {_i::*}:
+            if {_name} is not set:
+                set {_name} to cap(loop-value-2)
+            else:
+                set {_name} to "%{_name}% %cap(loop-value-2)%"
+        format gui slot {_n} of {_p} with {_i} named "&b%{_name}%" lored "&8(&3!&8) &7Price: &b$%convertNum({_price})%" to run function buyitem({_p}, {_i}, {_price}, {_name})
+        delete {_name}
+        add 1 to {_n}
+
+command /additem [<text>] [<number>]:
+    permission: *
+    permission message: &cno
+    trigger:
+        if arg-1 is not set:
+            send "{@prefix} &8-- &7Categories: &bBuilding, Redstone, Farming, Drops, Spawners"
+        else if arg-1 is not set:
+            send "{@prefix} &8-- &7You need a price... are you okay?"
+        else if player's tool is not air:
+            if arg-1 is "building" or "farming" or "redstone" or "drops" or "spawners":
+                send "{@prefix} &8-- &7Added &b%player's tool% &7to &b%arg-1% &7for &b$%arg-2%&7!"
+                add "%player's tool% - %arg-2%" to {%arg-1%::*}
+            else:
+                send "{@prefix} &8-- &7Invalid category."
+        else:
+            send "{@prefix} &8-- &7Please hold the item you want to add."
+
+command /delitem [<text>] [<text>]:
+    permission: op
+    permission message: &cno
+    trigger:
+        if arg-1 is not "building" or "farming" or "redstone" or "drops" or "spawners":
+            send "{@prefix} &8-- &7Categories: &bBuilding, Redstone, Farming, Drops, Spawners"
+        else if arg-1 is not set:
+            send "{@prefix} &8-- &7Choose an item."
+        else if {%arg-1%::*} does not contain arg-2:
+            send "{@prefix} &8- &7ITEMS IN SHOP:"
+            loop {%arg-1%::*}:
+                send "&8- &b%loop-value%"
+        else:
+            remove arg-2 from {%arg-1%::*}
+            send "{@prefix} &8- &7Removed the item from shop."
+
+function buyitem(p: player, i: item, price: number, name: text):
+    if {_p}'s balance >= {_price}:
+        if {_p} has enough space for {_i}:
+            give {_p} {_i}
+            subtract {_price} from {_p}'s balance
+            send "{@prefix} &8- &7You bought &b%{_name}% &7for &b$%convertNum({_price})%&7!" to {_p}
+        else:
+            send "{@prefix} &8- &7You don't have enough inventory space!" to {_p}
+    else:
+        send "{@prefix} &8- &7You're too broke to do that!" to {_p}
+
+command /addsell [<number>]:
+    permission: op
+    permission message: &cno
+    trigger:
+        if arg-1 is not set:
+            send "{@prefix} &8- &7Invalid price."
+        else if player's tool is air:
+            send "{@prefix} &8- &7Choose an item."
+        else:
+            add "%player's tool% - %arg-1%" to {sell::*}
+            send "{@prefix} &8- &7Added your held item to /sell."
+
+command /delsell [<text>]:
+    permission: op
+    permission message: &cno
+    trigger:
+        if arg-1 is not set:
+            send "{@prefix} &8- &7Choose an item."
+        else:
+            if {sell::*} does not contain arg-1:
+                send "{@prefix} &8- &7ITEMS IN /SELL:"
+                loop {sell::*}:
+                    send "&8- &b%loop-value%"
+            else:
+                remove arg-1 from {sell::*}
+                send "{@prefix} &8- &7Removed the item from /sell."
+
+command /sell [<text>]:
+    trigger:
+        open virtual chest inventory with size 6 named "&3Sell Items &7($%convertNum({bal::%player%})%)" for player
+        set {_n} to 0
+        loop {sell::*}:
+            set {_s::*} to loop-value split at " - "
+            set {_i} to "%first element out of {_s::*}%" parsed as item
+            set {_price} to "%2nd element out of {_s::*}%" parsed as number
+            set {_van::*} to vanilla name of {_i}
+            set {_van} to first element out of {_van::*}
+            replace all "minecraft:" in {_van} with ""
+            replace all "_" in {_van} with " "
+            set {_i::*} to ("%{_van}%") split at " "
+            loop {_i::*}:
+                if {_name} is not set:
+                    set {_name} to cap(loop-value-2)
+                else:
+                    set {_name} to "%{_name}% %cap(loop-value-2)%"
+            format gui slot {_n} of player with {_i} named "&b%{_name}%" lored "&8(&3!&8) &7Price: &b$%convertNum({_price})%" to run function sellitem(player, {_i}, {_price}, {_name})
+            delete {_name}
+            add 1 to {_n}
+
+
+function sellitem(p: player, i: item, price: number, name: text):
+    set {_num} to amount of {_i} in {_p}'s inventory
+    if {_num} > 0:
+        remove {_num} of {_i} from {_p}'s inventory
+        add {_price}*{_num} to {_p}'s balance
+        send "{@prefix} &8- &7You sold &b%{_name}% &7for &b$%convertNum({_price}*{_num})%&7!" to {_p}
+    else:
+        send "{@prefix} &8- &7You don't have any &b%{_i}% &7to sell!" to {_p}
+
+on inventory close:
+    custom name of event-inventory contains "&7($":
+        custom name of event-inventory doesn't contain "Sell":
+            wait 1 tick
+            player command "/shop"
+        
