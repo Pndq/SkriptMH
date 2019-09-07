@@ -1,0 +1,47 @@
+command /gtrench [<player>]:
+    permission: rank.admin
+    permission message: &cInsufficient Permissions.
+    trigger:
+        if argument 1 is not set:
+            send "&aSuccess! &7&o(Gave A Trench Pickaxe To %player%)"
+            give player diamond pickaxe named "&aTrench Pickaxe &8- &73x3"
+        else:
+            if argument 1 is offline:
+                send "&cUnsuccessful! &7&o(%arg-1% is not online)"
+            else:
+                send "&aSuccess! &7&o(Gave A Trench Pickaxe To %arg-1%)"
+                give arg-1 diamond pickaxe named "&aTrench Pickaxe &8- &73x3"
+ 
+command /gtrench2 [<player>]:
+    permission: rank.admin
+    permission message: &cInsufficient Permissions.
+    trigger:
+        if argument 1 is not set:
+            send "&aSuccess! &7&o(Gave A Trench2 Pickaxe To %player%)"
+            give player diamond pickaxe named "&aTrench Pickaxe &8- &75x5"
+        else:
+            if argument 1 is offline:
+                send "&cUnsuccessful! &7&o(%arg-1% is not online)"
+            else:
+                send "&aSuccess! &7&o(Gave A Trench Pickaxe To %arg-1%)"
+                give arg-1 diamond pickaxe named "&aTrench Pickaxe &8- &75x5"
+ 
+on mine:
+    if player is holding diamond pickaxe named "&aTrench Pickaxe &8- &73x3":
+        loop blocks in radius 2 of target block:
+            if loop-block is bedrock:
+                send "&7Bedrock has been detected in a 2 block radius. You can not mine this."
+                stop loop
+            else:
+                give player loop-block
+                set loop-block to air
+ 
+on mine:
+    if player is holding diamond pickaxe named "&aTrench Pickaxe &8- &75x5":
+        loop blocks in radius 3 of target block:
+            if loop-block is Bedrock:
+                send "&7Bedrock has been detected in a 4 block radius. You can not mine this." to player
+                stop loop
+            else:
+                give player loop-block
+                set loop-block to air
