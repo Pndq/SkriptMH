@@ -1,0 +1,36 @@
+command /ranks:
+
+        format gui slot 10 of player with end crystal named "&6&lELITE" with lore "","&a&n£1.99&7 (default)","","&e&oClick here for more info. " to close then run player command "buy"
+        format gui slot 12 of player with end crystal named "&4&lMASTER" with lore "","&a&n£4.99&7 (default)","","&e&oClick here for more info. " to close then run player command "buy"
+        format gui slot 14 of player with end crystal named "&3&lUNITE" with lore "","&a&n£12.49&7 (default)","","&e&oClick here for more info. " to close then run player command "buy"
+        format gui slot 16 of player with end crystal named "&e&o&lVETERAN" with lore "","&a&n£19.99&7 (default)","","&e&oClick here for more info. " to close then run player command "buy"
+
+on join:
+  set {questpoints::%player%} to placeholder "quests_player_quest_points"
+
+command /questshop:_rank.default    trigger_            open virtual chest inventory with size 3 named _&6Server Ranks_ to player
+    permission: rank.default
+    trigger:    
+        open virtual chest inventory with size 6 named "&7Quest Points Shop..." to player
+
+        format gui slot 4 of player with bookshelf named "&bWhat is this?" with lore "","&7This is where you can spend","&7your Quests Points that you have.","","&eYou have %{questpoints::%player%}% Quest Points.. " to do nothing
+        format gui slot 20 of player with spawner named "&a1x Iron Golem Spawner" with lore "","&7Purchase an Iron Golem","&7spawner using Quest Points.","","&fPrice: &e125 Quest Points","","&eClick to attempt to purchase.." to run function qsigspawner(player)
+        format gui slot 21 of player with beacon named "&91x Beacon" with lore "","&7Purchase a Beacon ","&7using Quest Points.","","&fPrice: &e10 Quest Points","","&eClick to attempt to purchase.." to run function qsbeacon(player)
+        format gui slot 22 of player with tripwire hook named "&a1x Guardian Key" with lore "","&7Purchase a Guardian Crate","&7Key using Quest Points.","","&fPrice: &e150 Quest Points","","&eClick to attempt to purchase.." to run function qsguardiankey(player)
+        format gui slot 23 of player with book named "&e1x Elite Rank" with lore "","&7Purchase a Elite rank for","&7yourself using Quest Points.","","&fPrice: &e500 Quest Points","","&eClick to attempt to purchase.." to run function qseliterank(player)
+        format gui slot 24 of player with end stone named "&b32x End Stone" with lore "","&7Purchase some End Stone for","&7your island using Quest Points.","","&fPrice: &e15 Quest Points","","&eClick to attempt to purchase.." to run function qsendstone(player)
+        format gui slot 29 of player with tripwire hook named "&61x Whimsical Key" with lore "","&7Purchase a Whimsical Crate","&7Key using Quest Points.","","&fPrice: &e45 Quest Points","","&eClick to attempt to purchase.." to run function qswhimsicalkey(player)
+        format gui slot 30 of player with hopper named "&d2x Hopper" with lore "","&7Purchase a set of 2 Hoppers","&7using Quest Points.","","&fPrice: &e65 Quest Points","","&eClick to attempt to purchase.." to run function qshopper(player)
+        format gui slot 31 of player with spawner named "&31x Zombie Spawner" with lore "","&7Purchase a Zombie","&7Spawner using Quest Points.","","&fPrice: &e70 Quest Points","","&eClick to attempt to purchase.." to run function qszombiespawner(player)
+        format gui slot 32 of player with spawner named "&31x Skeleton Spawner" with lore "","&7Purchase a Skeleton","&7Spawner using Quest Points.","","&fPrice: &e70 Quest Points","","&eClick to attempt to purchase.." to run function qsskeletonspawner(player)
+        format gui slot 33 of player with diamond pickaxe named "&31x Trench Pickaxe (3x3)" with lore "","&7Purchase a 3x3 Trench","&7Pickaxe using Quest Points.","","&fPrice: &e350 Quest Points","","&eClick to attempt to purchase.." to run function qstrenchpick(player)
+
+#function qsigspawner(p: player):
+    if {questpoints::%{_p}%} is greater than 125:
+        make console execute command "spawner give {_p} Iron_Golem 1"
+        remove 125 from {questpoints::%{_p}%}
+        send "&aTransaction Completed" to {_p}
+        stop
+    else:
+        send "&cInsufficient Points" to {_p}
+        stop
