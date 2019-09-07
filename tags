@@ -1,0 +1,66 @@
+on load:
+    delete {tags::*}
+    add "L" to {tags::*}
+    add "FactionsX" to {tags::*}
+
+command /tags [<text>] [<offline player>] [<text>]:
+    aliases: tag
+    trigger:
+        if argument 1 is not set:
+            open virtual chest inventory with size 3 named "&8( &6Tags &8)" for player
+            if {tag.%player%} is set:
+                if {tag.%player%} is "L":
+                    format gui slot 0 of player with name tag item named "&6L &eTag &a(Equipped)" with lore "&7Click me to disable","&7the &6L &7tag." to run function ltag(player)
+            else:
+                if {tags.%player%::*} contains "L":
+                    format gui slot 0 of player with name tag item named "&6L &eTag &a(Unlocked)" with lore "&7Click me to apply","&7the &6L &7tag." to run function ltag(player)
+                else:
+                    format gui slot 0 of player with name tag item named "&6L &eTag &c(Locked)" with lore "&7Unlock the &6L &7tag","&7at &e(store link) &7or from &e/shop&7","&7or from &ecrate keys&7!"
+        else:
+            if player has the permission "rank.admin":
+                if argument 1 is not "add" or "remove":
+                    send "&7[&bSkyHaze&7]  &7» &7Valid commands are:%nl%%nl%&8» &e/tag add <player> <tag>%nl%&8» &e/tag remove <player> <tag>%nl%"
+                else:
+                    if argument 1 is "add":
+                        if argument 2 is not set:
+                            send "&7[&bSkyHaze&7]  &7» &7Correct Usage: &e/tag add <player> <tag>"
+                        else:
+                            if argument 3 is not set:
+                                send "&7[&bSkyHaze&7]  &7» &7Correct Usage: &e/tag add <player> <tag>"
+                            else:
+                                if {tags::*} contains argument 3:
+                                    add argument 3 to {tags.%arg-2%::*}
+                                    send "&7[&bSkyHaze&7]  &7» &7Added the &6%arg-3% &7tag to &6%arg-2%&7!"
+                                else:
+                                    send "&6VILE &8» &7Please choose a valid tag!"
+                                    send "&7Valid tags are:"
+                                    loop {tags::*}:
+                                        send "&8» &e%loop-value%"
+                    if argument 1 is "remove":
+                        if argument 2 is not set:
+                            send "&6VILE &8» &7Correct Usage: &e/tag remove <player> <tag>"
+                        else:
+                            if argument 3 is not set:
+                                send "&6VILE &8» &7Correct Usage: &e/tag remove <player> <tag>"
+                            else:
+                                if {tags.%arg-2%::*} contains argument 3:
+                                    remove argument 3 from {tags.%arg-2%::*}
+                                    send "&7[&bSkyHaze&7]  &7» &7Removed the &6%arg-3% &7tag from &6%arg-2%&7."
+                                else:
+                                    send "&7[&bSkyHaze&7]  &7» &6%arg-2% &7doesn't have that tag!"
+            else:
+                send "&7[&bSkyHaze&7]  &7» &7Insufficient Permissions."
+
+#Functions
+
+function ltag(p: player):
+    if {tag.%{_p}%} is "L":
+        delete {tag.%{_p}%}
+        send "&7[&bSkyHaze&7]  &7» &7You have disabled the &6L &7tag!" to {_p}
+        format gui slot 0 of {_p} with name tag item named "&6L &eTag &a(Unlocked)" with lore "&7Click me to apply,&7the &6L &7tag." to run function ltag({_p})
+        set {_p}'s suffix to ""
+    else:
+        set {tag.%{_p}%} to "L"
+        send "&7[&bSkyHaze&7]  &7» &7You have equipped the &6L &7tag!" to {_p}
+        format gui slot 0 of {_p} with name tag item named "&6L &eTag &a(Equipped)" with lore "&7Click me to disable,&7the &6L &7tag." to run function ltag({_p})
+        set {_p}'s suffix to " &8[&6L&8]"
