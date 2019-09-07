@@ -1,0 +1,91 @@
+options:
+	prefix: &8[&6KoTH&8]
+	
+	no-permission: &cNo Permission
+	
+	koth-region-name: koth
+	
+	koth-started: &aA KoTH has started!
+	
+	koth-stopped: &cThe KoTH was stopped
+	
+	koth-already-running: &cA KoTH is already running
+	
+	koth-no-longer-captured: &b%player% &7is no longer capturing KoTH!
+	
+	koth-successfully-captured: &b%loop-value% &7has captured KoTH!
+	
+	koth-timer: &6KoTH Timer: &b%{koth::timer}% seconds
+	
+	koth-command-reward: /eco give %loop-value% 50000
+
+variables:
+	{koth::started} = false
+	
+every 1 second:
+	if {koth::started} is true:
+		if size of {capping::*} is 1:
+			if {koth::timer} > 0:
+				remove 1 from {koth::timer}
+			if {koth::timer} = 240:
+				loop {capping::*}:
+					broadcast "{@prefix} &b%loop-value% &7is capturing KoTH! &b4:00 &7remaining"
+			if {koth::timer} = 180:
+				loop {capping::*}:
+					broadcast "{@prefix} &b%loop-value% &7is capturing KoTH! &b3:00 &7remaining"
+			if {koth::timer} = 120:
+				loop {capping::*}:
+					broadcast "{@prefix} &b%loop-value% &7is capturing KoTH! &b2:00 &7remaining"
+			if {koth::timer} = 60:
+				loop {capping::*}:
+					broadcast "{@prefix} &b%loop-value% &7is capturing KoTH! &b1:00 &7remaining"
+			if {koth::timer} = 30:
+				loop {capping::*}:
+					broadcast "{@prefix} &b%loop-value% &7is capturing KoTH! &b0:30 &7remaining"
+			if {koth::timer} = 10:
+				loop {capping::*}:
+					broadcast "{@prefix} &b%loop-value% &7is capturing KoTH! &b0:10 &7remaining"
+			if {koth::timer} = 0:
+				set {koth::started} to false
+				loop {capping::*}:
+					broadcast "{@prefix} {@koth-successfully-captured}"
+					execute console command "{@koth-command-reward}"
+					delete {capping::*}
+					
+on region enter:
+	if "%region%" contains "{@koth-region-name}":
+		if {koth::started} is true:
+			if size of {capping::*} is 0:
+				add "%player%" to {capping::*}
+				set {koth::timer} to 300
+				broadcast "{@prefix} &b%player% &7is now capturing KoTH! &b5:00 &7remaining"
+				
+on region exit:
+	if {koth::started} is true:
+		if {capping::*} contains "%player%":
+			remove "%player%" from {capping::*}
+			set {koth::timer} to 300
+			broadcast "{@prefix} {@koth-no-longer-captured}"
+			
+command /koth [<text>]:
+	trigger:
+		if arg-1 is "start":
+			if player has permission "koth.start" or "koth.*":
+				if {koth::started} is false:
+					set {koth::started} to true
+					broadcast "{@prefix} {@koth-started}"
+				else:
+					send "{@prefix} {@koth-already-running}"
+			else:
+				send "{@no-permission}"
+		else if arg-1 is "stop":
+			if player has permission "koth.stop" or "koth.*":
+				set {koth::started} to false
+				clear {capping::*}
+				broadcast "{@prefix} {@koth-stopped}"
+			else:
+				send "{@no-permission}"
+		else if arg-1 is "timer":
+			send "{@koth-timer}"
+		else:
+			send "&cUsage: /koth <start/stop/timer>"
