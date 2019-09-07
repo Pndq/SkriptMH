@@ -1,0 +1,81 @@
+on right click with tripwire hook on chest:
+    "%region at player%" contains "spawn"
+    if name of tool is "&bWhimsical Crate Key":
+        if block below target block is light blue stained glass:
+            cancel event
+            play sound "block.chest.open" at volume 1 to player
+            set {_random} to random element out of {items::crates::whimsical::*}
+            give player {_random}
+            send "&7[&bSkyhaze&7] &7» &7You won &b%{_random}%&7!"
+            remove 1 of tool named "&bWhimsical Crate Key" from player's inventory
+            broadcast "&b%player%&7 has just opened a &bWhimsical Crate&7 and won &b%name of {_random} ? type of {_random}%"
+    if name of tool is "&cGiveaway Crate Key":
+        if block below target block is quartz pillar:
+            cancel event
+            set {_random} to random element out of {items::crates::giveaway::*}
+            give player {_random}
+            play sound "block.chest.open" at volume 1 to player
+            send "&7[&bSkyhaze&7] &7» &7You won &b%{_random}%&7!"
+            remove 1 of tool named "&cGiveaway Crate Key" from player's inventory
+            broadcast "&b%player%&7 has just opened a &bGiveaway Crate&7 and won &b%name of {_random} ? type of {_random}%"
+    if name of tool is "&6Guardian Crate Key":
+        if block below target block is lime stained glass:
+            cancel event
+            set {_random} to random element out of {items::crates::guardian::*}
+            give player {_random}
+            play sound "block.chest.open" at volume 1 to player
+            send "&7[&bSkyhaze&7] &7» &7You won &b%{_random}%&7!"
+            remove 1 of tool named "&6Guardian Crate Key" from player's inventory
+            send "%nl%&6%player%&7 has just opened a &6&nGuardian Crate&7 and won &6%name of {_random}% %nl%" to all players
+
+command /add:
+    permission: rank.admin
+    trigger:
+        add player's held item to {items::crates::giveaway::*}
+        send "%{items::crates::giveaway::*}%"
+
+
+on right click on chest:
+    "%region at player%" contains "spawn"
+    block below target block is quartz pillar or light blue stained glass or lime stained glass:
+        send "&7[&bSkyhaze&7] &7» &7You &c&lDO NOT&7 have the correct key!"
+        push player backwards at speed 0.5
+        push player upwards at speed 0.5
+    gamemode of player isn't creative
+    cancel event
+
+on left click on chest:
+    "%region at player%" contains "spawn"
+    tool isn't tripwire hook:
+        block below target block is quartz pillar or light blue stained glass or lime stained glass:
+            cancel event
+            open virtual chest inventory with size 3 named "&bCrate Items" for player
+            if block below target block is quartz pillar:
+                loop {items::crates::giveaway::*}:
+                    format gui slot (loop-index parsed as integer - 1) of player with loop-value
+            if block below target block is light blue stained glass:
+                loop {items::crates::whimsical::*}:
+                    format gui slot (loop-index parsed as integer - 1) of player with loop-value
+            if block below target block is lime stained glass:
+                loop {items::crates::guardian::*}:
+                    format gui slot (loop-index parsed as integer - 1) of player with loop-value
+                
+
+command /key [<text>]:
+    permission: op
+    permission message: &cno
+    trigger:
+        add shiny tripwire hook named "&bWhimsical Crate Key" to inventory of player
+        add shiny tripwire hook named "&cGiveaway Crate Key" to inventory of player
+        add shiny tripwire hook named "&6Guardian Crate Key" to inventory of player
+command /keyall [<text>]:
+    permission: op
+    permission message: &cno
+    trigger:
+        add shiny tripwire hook named "&cGiveaway Crate Key" to inventory of all players
+        broadcast "%nl%&7[&bSkyhaze&7] &7» &7Everyone received a &bGiveaway Crate Key&7! %nl%&7"
+
+command /plugins:
+    aliases: pl
+    trigger:
+        send "&fPlugins (3): &aBukkitCore&f, &aPlayerServer&f, &aSkyhazeCore"
