@@ -1,0 +1,148 @@
+options:
+	Version: BETA-Release
+
+on join:
+    wait 20 ticks
+    loop 50 times:
+        message " "
+    message "&e&l    &8<&f&l*&8> &b&lSKYHAZE &f&lSKYBLOCK &7(&8{@Version}&7) &8<&f&l*&8>"
+    message "&r "
+    message "&f    * &7Welcome back to &bSkyblock &fReloaded,&7 %player%&7!   "
+    message "&r      "
+    message "&a&lSTORE &f <link:http://skyhaze.buycraft.net/>https://skyhaze.buycraft.net"
+    message "&f&lWEBSITE &fComing Soon"
+    message "&2&lDISCORD &f <link:https://discord.skyhazes.net>http://discord.skyhazes.net"
+
+command /help [<number>]:
+    executable by: console, players
+    trigger:
+        if arg-1 is not set:
+            send "&8&m--------------------------------------------------"
+            send ""
+            send "                                 &8[&b&lHelp&8]"
+            send ""         
+            send " &b/island &8- &7Get started and create / teleport to your island!"
+            send " &b/mission &8- &7Receive and check your daily mission!"
+            send " &b/baltop &8- &7Check the players with the highest balance on the server!"
+            send " &b/balance &8- &7See your balance!"
+            send " &b/report &8- &7Report a user for a various reason!"
+            send " &b/kits &8- &7Display the server Kits!"
+            send " &b/spawn &8- &7Teleport to the server spawn!"
+            send ""         
+            send "<command:/help 2> &7Click &bhere &7to read the next page!"
+            send ""
+            send "&8&m--------------------------------------------------"
+        else if arg = 2:
+            send "&8&m--------------------------------------------------"
+            send ""
+            send "                                 &8[&b&lHelp&8]"
+            send ""         
+            send " &b/is delete &8- &7Deletes your island!"
+            send " &b/is invite &8- &7Invite a player to your island"
+            send " &b/is top &8- &7Opens a gui which shows the top 10 islands based on level!"
+            send " &b/is border &8- &7Customize the colour of your island border!"
+            send " &b/is warps &8- &7Opens a gui which shows all the server island warps!"
+            send " &b/is setwarp &8- &7Sets a public island warp at your location!"
+            send " &b/is crystals &8- &7Adds up and displays the amount of crystals you have"
+            send " &b/is value &8- &7Adds up and displays the island total!"
+            send ""         
+            send "<command:/help 3> &7Click &bhere &7to read the next page!"
+            send ""
+            send "&8&m--------------------------------------------------"
+        else if arg = 3:
+            send "&8&m--------------------------------------------------"
+            send ""
+            send "                                 &8[&b&lHelp&8]"
+            send ""         
+            send " &b/ah &8- &7Opens the Auction House GUI!"
+            send " &b/ah sell &8- &7Sell the item you're holding to the Auction House"
+            send " &b/playtime &8- &7Shows how long you have played on the server for"
+            send " &b/aach stats &8- &7Shows stats about your achievements on the server!"
+            send " &b/aach list &8- &7Opens a gui which shows all the server achievements!"
+            send " &b/tutorial &8- &7Starts the tutorial for you!"
+            send ""         
+            send "<command:/help 4> &7Click &bhere &7to read the next page!"
+            send ""
+            send "&8&m--------------------------------------------------"
+
+
+command /tutorialreset [<player>]:
+	permission: rank.admin
+	permission message: &cNo Permissions
+	trigger:
+		if arg-1 is set:
+			set {tutorial::%uuid of arg-1%} to false
+			send "&cSet to false for %arg-1%"
+		if arg-1 is not set:
+			set {tutorial::%uuid of player%} to false
+			send "&cSet to false for %player%"
+#command /tutorial:
+	permission: rank.default
+	permission message: &cYou have no permissions, Let an administrator know.
+	trigger:
+		if {tutorial::%uuid of player%} is true:
+			send "&4??? &7» &cYou may only do the tutorial once per account"
+			stop
+		if {tutorial::%uuid of player%} is false:
+			make console execute command "warp tutorial %player%"
+			make console execute command "citizens reload"
+			make console execute command "hd reload"
+			loop 35 times:
+				message " "
+			send "&4??? &7» &7Welcome to &b&nSkyHaze's&7 official server"
+			wait 4 seconds
+			loop 35 times:
+				message " "
+			send "&4??? &7» &7My name is &bSteve&7 and this is the tutorial for the server which will hopefully teach you about &beverything&7 you need to know to become an amazing Skyblock player."
+			wait 7 seconds
+			loop 35 times:
+				message " "
+			send "&bSteve &7» &7First things first, lets talk to you about &ecustom island missions&7."
+			send "&bSteve &7» &7Once you receieve an island type &e/is missions&7."
+			send "&bSteve &7» &7You can complete missions from your island and win &aIsland Crystals&7 which you can use to by &a/fly boosters&7 with &a/is boosters&7 or even island upgrades with &a/is upgrades&7!"
+			send "&bSteve &7» &7If you have money and dont feel like working for them just yet you can always buy some Crystals on /buy. &aSupporting the server isnt a bad option is it? >.<"
+			wait 30 seconds
+			loop 35 times:
+				message " "
+			send "&bSteve &7» &7So this is how your island will look at first when you start. Be sure to claim your kit &c&lONCE YOU'RE ON YOUR ISLAND ONLY&7!"
+			send "&bSteve &7» &7This season you can compete for paypal rewards. Check your is value with &a/is value&7 and check the top 10 leaderboard with &a/is top&7!"
+			wait 20 seconds
+			loop 35 times:
+				message " "
+			send "&bSteve &7» &7There are also special events such as &6KoTHs or King of the hills&7 which you can compete for &f&nBIG MONEY&7!"
+			send "&bSteve &7» &7Sorry if this is all a bit overwhelming, You can have a look at these commands in &c/help"
+			send "&bSteve &7» &7If you ever require extra help join our &cdiscord&7 which you can see at the top of your screen or &aask a player ingame&7. Our community is very &afriendly&7!"
+			wait 20 seconds
+			loop 35 times:
+				message " "
+			send "&bSteve &7» &7Now if the tutorial is working correctly you should be able to see an example of a basic cobblestone generator. This will help you &c&lALOT&7!"
+			make console execute command "warp tutorialgen %player% "
+			wait 25 seconds
+			loop 35 times:
+				message " "
+			send "&bSteve &7» &7Here is a basic cactus farm. Its disabled in this world but will work really nicely on your island as the tick speed is &a&n150&7!"
+			make console execute command "warp tutorialfarm %player%"
+			wait 25 seconds
+			loop 35 times:
+				message " "
+			send "&bSteve &7» &7Do me a favour though please, Right click on me to open the GUI and click on the &bcompass&7. This will start your first &bquest&7. Follow the details on screen.&7!"
+			make console execute command "warp tutorial %player%"
+			give player compass named "&bSpecial Compass"
+			wait 25 seconds
+			loop 35 times:
+				message " "
+			send "&bSteve &7» &7And that concludes our tutorial, Please join our &adiscord&7 to hear further updates etc. &a&l&nYou have potential&7!"
+			send "&bSteve &7» &7Here is &a&n$3500&7 for you to get started&7!"
+			make console execute command "spawn %player%"
+			make console execute command "feed %player%"
+			make console execute command "heal %player%"
+			make console execute command "eco set %player% 1500"
+			broadcast "&b%player% &7completed the tutorial for the &bFIRST&7 time!"
+			set {tutorial::%uuid of player%} to true
+
+command /staffchat <text>:
+    permission: rank.jrmod
+    permission message: &cYou do not have permission to run this command!
+    aliases: /sc
+    trigger:
+        send "&b[STAFF] %player%: &e%arg-1%" to all players where [input has the permission "rank.jrmod"]
