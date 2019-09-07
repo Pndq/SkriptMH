@@ -1,0 +1,30 @@
+options:
+ reward: 3000
+ prefix: &7[&bSkyhaze&7] &7»
+
+
+every 5 minutes:
+	set {random.integer.two} to 0
+	set {random.integer} to a random integer between 10000000000 and 999999999999
+	broadcast "{@prefix} &7Type &b&n%{random.integer}%&r &7to win a prize!"
+
+on chat:
+	if message contains "%{random.integer}%":
+		if  {random.integer.two} = 0:
+			cancel event
+			add {@reward} to player's balance
+			send "%nl%{@prefix} &b%player% &7won the chat game and won $3000!%nl%&7" to all players
+			set {random.integer.two} to 1
+			stop
+		else if  {random.integer.two} = 1:
+			cancel event
+			message "{@prefix} &eI'm sorry, this number has been redeemed by someone else, please wait until the next number!"
+			stop
+	else:
+		stop
+
+on craft of hopper:
+	if player has permission "rank.elite":
+		stop
+	else:
+		send "&c[&e!&c] You are not allowed to craft hoppers! You require &6&lELITE RANK+&c."
