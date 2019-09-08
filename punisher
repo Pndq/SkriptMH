@@ -1,5 +1,5 @@
 command /history [<offline player>]:
-	permission: staff.history
+	permission: rank.jrmod
 	permission message: &c&l[!] &cInsufficient Permissions!
 	trigger:
 		if arg 1 is not set:
@@ -21,7 +21,7 @@ command /history [<offline player>]:
 							send "&8» &7You reverted 1 of &a%arg 1%&7's warns!"
 
 command /warn [<offline player>] [<text>] [<text>]:
-	permission: staff.warn
+	permission: rank.jrmod
 	permission message: &c&l[!] &cInsufficient Permissions!
 	trigger:
 		if arg 1 is not set:
@@ -39,7 +39,7 @@ command /warn [<offline player>] [<text>] [<text>]:
 				play sound "entity.experience_orb.pickup" to arg 1
 
 command /unwarn [<offline player>] [<text>]:
-	permission: staff.unwarn
+	permission: rank.jrmod
 	permission message: &c&l[!] &cInsufficient Permissions!
 	trigger:
 		if arg 1 is not set:
@@ -58,7 +58,7 @@ command /unwarn [<offline player>] [<text>]:
 				play sound "entity.experience_orb.pickup" to arg 1
 
 command /ban [<offline player>] [<text>]:
-	permission: staff.ban
+	permission: rank.mod
 	permission message: &c&l[!] &cInsufficient Permissions!
 	trigger:
 		if arg 1 is not set:
@@ -77,7 +77,7 @@ command /ban [<offline player>] [<text>]:
 				kick arg 1 due to "%nl%&2You got Banned!%nl%%nl%&7Reason: &a%arg 2%%nl%&7Time: &aForever%nl%&7Operator: &a%player%%nl%"
 
 command /unban [<offline player>] [<text>]:
-	permission: staff.unban
+	permission: rank.mod
 	permission message: &c&l[!] &cInsufficient Permissions!
 	trigger:
 		if arg 1 is not set:
@@ -101,7 +101,7 @@ command /unban [<offline player>] [<text>]:
 
 
 command /mute [<offline player>] [<text>]:
-	permission: staff.mute
+	permission: rank.jrmod
 	permission message: &c&l[!] &cInsufficient Permissions!
 	trigger:
 		if arg 1 is not set:
@@ -129,7 +129,7 @@ on chat:
 		send "&c&l[!] &cYou are currently muted, and cant talk in chat!"
 
 command /unmute [<offline player>] [<text>]:
-	permission: staff.unmute
+	permission: rank.jrmod
 	permission message: &c&l[!] &cInsufficient Permissions!
 	trigger:
 		if arg 1 is not set:
@@ -147,7 +147,7 @@ command /unmute [<offline player>] [<text>]:
 				play sound "entity.experience_orb.pickup" to arg 1
 
 command /tempban [<offlineplayer>] [<text>] [<timespan>]:
-  permission: staff.tempban
+  permission: rank.mod
   permission message: &c&l[!] &cInsufficient Permission.
   trigger:
     if arg 1 and arg 2 and arg 3 is set:	
@@ -171,7 +171,7 @@ command /tempban [<offlineplayer>] [<text>] [<timespan>]:
       send "&c&l[!] &cPlease use: /tempban <player> <reason> <time>"
 
 command /tempmute [<offlineplayer>] [<text>] [<timespan>]:
-  permission: staff.tempmute
+  permission: rank.jrmod
   permission message: &c&l[!] &cInsufficient Permission.
   trigger:
     if arg 1 and arg 2 and arg 3 is set:	
